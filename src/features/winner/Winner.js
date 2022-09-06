@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, Navigate } from 'react-router-dom';
+import {
+  WinnerOuterContainer, WinnerTitle, WinnerAvatar, WinnerName, WinnerRechoose,
+} from './Winner.style';
 
 export default function Winner() {
   const navigate = useNavigate();
@@ -8,15 +11,17 @@ export default function Winner() {
   const lottery = useSelector((state) => state.lottery.lottery);
 
   return (
-    <div>
+    <WinnerOuterContainer>
       {(userDatas && lottery) ? (
-        <div key={userDatas[lottery].id}>
-          <img src={`${userDatas[lottery].image.thumbnail}`} alt="pokemon" />
-          <p>{userDatas[lottery].name.english}</p>
-          <p>{userDatas[lottery].id}</p>
-        </div>
+        <>
+          <WinnerTitle>抽獎結果</WinnerTitle>
+          <div key={userDatas[lottery].id}>
+            <WinnerAvatar src={`${userDatas[lottery].image.thumbnail}`} alt="pokemon" />
+            <WinnerName>{userDatas[lottery].name.english}</WinnerName>
+          </div>
+        </>
       ) : (<Navigate to="/" replace />)}
-      <button type="button" onClick={() => navigate('/')}>重新抽選</button>
-    </div>
+      <WinnerRechoose type="button" onClick={() => navigate('/')}>重新抽選</WinnerRechoose>
+    </WinnerOuterContainer>
   );
 }

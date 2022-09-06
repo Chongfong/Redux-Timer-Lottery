@@ -5,6 +5,11 @@ import {
   update, countDown,
 } from './counterSlice';
 import { winLottery } from '../lottery/lotterySlice';
+import {
+  CounterOuterContainer, CounterTiTle, CounterInputMins,
+  CounterMinuteContainer, CounterStartContainer,
+  CounterMins, CounterStart, CounterTimer,
+} from './Counter.style';
 
 export default function Counter() {
   const navigate = useNavigate();
@@ -40,21 +45,21 @@ export default function Counter() {
   }, [totalSeconds, start, dispatch, navigate]);
 
   return (
-    <div>
-      <p>抽獎時間</p>
-      <input
+    <CounterOuterContainer>
+      <CounterTiTle>抽獎時間</CounterTiTle>
+      <CounterInputMins
         type="number"
         value={mins}
         max="99"
         onChange={handleChangeTimer}
       />
-      分鐘
-      <button type="button" onClick={() => { setStart(true); }}>設定</button>
-      <p>
+      <CounterMinuteContainer><CounterMins>分鐘</CounterMins></CounterMinuteContainer>
+      <CounterStartContainer><CounterStart type="button" onClick={() => { setStart(true); }}>設定</CounterStart></CounterStartContainer>
+      <CounterTimer>
         {timeFormat(Math.floor(totalSeconds / 60))}
         :
         {timeFormat(totalSeconds % 60)}
-      </p>
-    </div>
+      </CounterTimer>
+    </CounterOuterContainer>
   );
 }

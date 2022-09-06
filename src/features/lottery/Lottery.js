@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from './lotterySlice';
+import {
+  LotteryOuterContainer, LotteryListContainer, LotteryCandidateContainer,
+  LotteryTitle, LotteryAvatar, LotteryName,
+} from './Lottery.style';
 
 export default function Lottery() {
   const dispatch = useDispatch();
@@ -16,16 +20,19 @@ export default function Lottery() {
   }, [dispatch]);
 
   return (
-    <div>
-      {userDatas
+    <LotteryOuterContainer>
+      <LotteryTitle>參與抽獎名單</LotteryTitle>
+      <LotteryListContainer>
+        {userDatas
       && userDatas.map(
         (user) => (
-          <div key={user.id}>
-            <img src={`${user.image.thumbnail}`} alt="pokemon" />
-            <p>{user.name.english}</p>
-          </div>
+          <LotteryCandidateContainer key={user.id}>
+            <LotteryAvatar src={`${user.image.thumbnail}`} alt={`pokemon-${user.id}`} />
+            <LotteryName>{user.name.english}</LotteryName>
+          </LotteryCandidateContainer>
         ),
       )}
-    </div>
+      </LotteryListContainer>
+    </LotteryOuterContainer>
   );
 }
