@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   update, countDown,
 } from './counterSlice';
 import { winLottery } from '../lottery/lotterySlice';
 
 export default function Counter() {
+  const navigate = useNavigate();
   const totalSeconds = useSelector((state) => state.counter.totalSeconds);
   const [mins, setMins] = useState(0);
   const [start, setStart] = useState(false);
@@ -32,9 +34,10 @@ export default function Counter() {
       setMins(0);
       setStart(false);
       dispatch(winLottery(Math.floor(Math.random() * 100)));
+      navigate('/result');
     }
     return (() => { clearTimeout(timer.current); });
-  }, [totalSeconds, start, dispatch]);
+  }, [totalSeconds, start, dispatch, navigate]);
 
   return (
     <div>
