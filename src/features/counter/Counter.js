@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   update, countDown,
 } from './counterSlice';
+import { winLottery } from '../lottery/lotterySlice';
 
 export default function Counter() {
   const totalSeconds = useSelector((state) => state.counter.totalSeconds);
@@ -11,6 +12,7 @@ export default function Counter() {
   const timer = useRef();
   const dispatch = useDispatch();
   const handleChangeTimer = (e) => {
+    setStart(false);
     if (e.target.value > 99) {
       alert('最大數字為99');
       setMins(99);
@@ -29,6 +31,7 @@ export default function Counter() {
     } else if (start) {
       setMins(0);
       setStart(false);
+      dispatch(winLottery(Math.floor(Math.random() * 100)));
     }
     return (() => { clearTimeout(timer.current); });
   }, [totalSeconds, start, dispatch]);
