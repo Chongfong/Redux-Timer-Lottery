@@ -1,4 +1,4 @@
-<h1 align="center">LANG-Front-End-Assessment</h1>
+<h1 align="center">Redux-Timer-Lottery</h1>
 
 ## Introduction
 
